@@ -1,24 +1,34 @@
 name: Generate GitHub Dashboard Metrics
+
+# Trigger daily at midnight and also manually
 on:
   schedule:
-    - cron: '0 0 * * *'  # daily at midnight
-  workflow_dispatch:
+    - cron: '0 0 * * *'  # every day at 00:00 UTC
+  workflow_dispatch:      # manual trigger
 
 jobs:
   generate:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
 
+    steps:
+      # 1️⃣ Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2️⃣ Set up Python environment
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
+          python-version: '3.11'  # or 3.x
 
+      # 3️⃣ Install dependencies from requirements.txt
       - name: Install dependencies
-        run: pip install requests matplotlib pandas wordcloud
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-      - name: Run all metric scripts
+      # 4️⃣ Run all metrics scripts
+      - name: Run metric scripts
         run: |
           python scripts/generate_commits.py
           python scripts/generate_prs.py
@@ -28,13 +38,16 @@ jobs:
           python scripts/generate_ci_cd.py
           python scripts/generate_fun.py
           python scripts/generate_analytics.py
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}  # your personal access token
 
+      # 5️⃣ Commit and push updated metrics
       - name: Commit and push metrics
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git add metrics/
-          git commit -m "Update metrics" || echo "No changes"
+          git commit -m "Update GitHub metrics [skip ci]" || echo "No changes"
           git push
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
