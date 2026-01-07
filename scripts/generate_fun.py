@@ -18,7 +18,7 @@ Requirements:
 import os
 import requests
 from pathlib import Path
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import matplotlib.pyplot as plt
 import pandas as pd
 from collections import Counter
@@ -91,7 +91,8 @@ plt.close()
 # -------------------------------
 # Count commits in last 7 days for each repo
 recent_activity = {}
-seven_days_ago = datetime.utcnow() - timedelta(days=7)
+seven_days_ago = datetime.now(timezone.utc) - timedelta(days=7)
+
 
 for repo in repos:
     commits = requests.get(f"https://api.github.com/repos/{USERNAME}/{repo['name']}/commits", headers=HEADERS).json()
