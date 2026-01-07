@@ -8,7 +8,15 @@ import matplotlib.pyplot as plt
 # -----------------------------
 # Configuration
 # -----------------------------
-USERNAME = "your-username"  # <-- REPLACE THIS
+#USERNAME = "your-username"  # <-- REPLACE THIS
+
+repo = os.environ.get("GITHUB_REPOSITORY")
+
+if not repo:
+    raise RuntimeError("GITHUB_REPOSITORY environment variable not set")
+
+USERNAME = repo.split("/")[0]
+
 TOKEN = os.environ.get("GH_TOKEN")
 
 if not TOKEN:
