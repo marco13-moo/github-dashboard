@@ -27,8 +27,11 @@ HEADERS = {
     "Accept": "application/vnd.github+json"
 }
 
-OUTPUT_DIR = Path("../metrics/social")
+#OUTPUT_DIR = Path("../metrics/social")
+#OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+OUTPUT_DIR = Path("metrics/social")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
 
 # -----------------------------
 # Fetch user data safely

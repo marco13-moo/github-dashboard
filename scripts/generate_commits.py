@@ -18,8 +18,11 @@ USERNAME = repo.split("/")[0]
 TOKEN = os.environ.get("GH_TOKEN")
 HEADERS = {"Authorization": f"token {TOKEN}"}
 
-OUTPUT_DIR = Path("../metrics/commits")
+#OUTPUT_DIR = Path("../metrics/commits")
+#OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+OUTPUT_DIR = Path("metrics/commits")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
 
 # Fetch all repos
 repos = requests.get(f"https://api.github.com/users/{USERNAME}/repos", headers=HEADERS).json()

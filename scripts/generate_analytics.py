@@ -40,8 +40,11 @@ USERNAME = repo.split("/")[0]
 TOKEN = os.environ.get("GH_TOKEN")  # GitHub token stored in Actions secrets
 HEADERS = {"Authorization": f"token {TOKEN}"}
 
-OUTPUT_DIR = Path("../metrics/analytics")
+#OUTPUT_DIR = Path("../metrics/analytics")
+#OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+OUTPUT_DIR = Path("metrics/analytics")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
 
 # Fetch repositories (top 10 for performance)
 repos = requests.get(f"https://api.github.com/users/{USERNAME}/repos", headers=HEADERS).json()[:10]
