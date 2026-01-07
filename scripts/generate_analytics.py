@@ -134,11 +134,18 @@ hours = []
 weekdays = []
 
 for repo in repos:
-    commits = requests.get(f"https://api.github.com/repos/{USERNAME}/{repo['name']}/commits", headers=HEADERS).json()
-    for c in commits:
-        dt = datetime.fromisoformat(c["commit"]["author"]["date"].replace("Z","+00:00"))
+    commits = requests.get(
+        f"https://api.github.com/repos/{USERNAME}/{repo['name']}/commits",
+        headers=HEADERS
+    ).json()
+
+    for commit in commits:
+        ts = commit["commit"]["author"]["date"]
+        dt = parse_github_timestamp(ts)
+
         hours.append(dt.hour)
-        weekdays.append(dt.weekday())  # Monday=0
+        weekdays.append(dt.weekday())
+
 
 # Create heatmap dataframe
 df_heat = pd.DataFrame({"Hour": hours, "Weekday": weekdays})
