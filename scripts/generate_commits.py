@@ -11,9 +11,10 @@ import matplotlib
 matplotlib.use("Agg")  # headless mode for GitHub Actions
 import matplotlib.pyplot as plt
 from textblob import TextBlob
+from datetime import datetime
 
 # -------------------------------
-# Configuration
+# Config
 # -------------------------------
 repo_env = os.environ.get("GITHUB_REPOSITORY")
 if not repo_env:
@@ -25,11 +26,10 @@ if not TOKEN:
     raise RuntimeError("GH_TOKEN environment variable not set")
 
 HEADERS = {"Authorization": f"token {TOKEN}"}
-
 OUTPUT_DIR = Path("metrics/commits")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-# Fetch all repos (top 5 for performance)
+# Fetch top 5 repos for performance
 repos = requests.get(f"https://api.github.com/users/{USERNAME}/repos", headers=HEADERS).json()[:5]
 
 # -------------------------------
@@ -37,6 +37,8 @@ repos = requests.get(f"https://api.github.com/users/{USERNAME}/repos", headers=H
 # -------------------------------
 commit_lengths = []
 commit_counts = {}
+hours = []
+weekdays = []
 
 for repo in repos:
     name = repo["name"]
@@ -44,12 +46,14 @@ for repo in repos:
     count = len(commits)
     commit_counts[name] = count
 
-    # collect commit lengths
     for c in commits:
         msg = c["commit"]["message"]
         commit_lengths.append(len(msg))
+        dt = datetime.fromisoformat(c["commit"]["author"]["date"].replace("Z","+00:00"))
+        hours.append(dt.hour)
+        weekdays.append(dt.weekday())
 
-# Save commits per repo as text image
+# Commits per repo (horizontal bar)
 plt.figure(figsize=(8,4))
 if commit_counts:
     y_pos = range(len(commit_counts))
@@ -68,6 +72,7 @@ plt.figure(figsize=(4,4))
 plt.bar(["Average Commit Length"], [avg_length], color="orange")
 plt.ylabel("Chars")
 plt.title("Average Commit Length")
+plt.tight_layout()
 plt.savefig(OUTPUT_DIR / "avg_commit_length.png")
 plt.close()
 
@@ -75,14 +80,8 @@ plt.close()
 # 2️⃣ Commit Message Sentiment
 # -------------------------------
 sentiments = {"positive":0, "negative":0, "neutral":0}
-all_messages = []
 
-for repo in repos:
-    commits = requests.get(f"https://api.github.com/repos/{USERNAME}/{repo['name']}/commits", headers=HEADERS).json()
-    for c in commits:
-        all_messages.append(c["commit"]["message"])
-
-for msg in all_messages:
+for msg in [c["commit"]["message"] for repo in repos for c in requests.get(f"https://api.github.com/repos/{USERNAME}/{repo['name']}/commits", headers=HEADERS).json()]:
     polarity = TextBlob(msg).sentiment.polarity
     if polarity > 0.1:
         sentiments["positive"] += 1
@@ -94,6 +93,7 @@ for msg in all_messages:
 plt.figure(figsize=(6,4))
 plt.bar(sentiments.keys(), sentiments.values(), color=["green","red","gray"])
 plt.title("Commit Message Sentiment")
+plt.tight_layout()
 plt.savefig(OUTPUT_DIR / "commit_sentiment.png")
 plt.close()
 
@@ -163,6 +163,37 @@ else:
 plt.title("Top 10 Most Frequently Edited Files")
 plt.tight_layout()
 plt.savefig(OUTPUT_DIR / "top_files.png")
+plt.close()
+
+# -------------------------------
+# 6️⃣ Commit Distribution by Weekday
+# -------------------------------
+plt.figure(figsize=(8,4))
+if weekdays:
+    weekday_counts = [weekdays.count(i) for i in range(7)]
+    plt.bar(["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], weekday_counts, color="skyblue")
+else:
+    plt.text(0.5,0.5,"No commit data", ha="center", va="center", fontsize=14)
+plt.title("Commit Distribution by Weekday")
+plt.tight_layout()
+plt.savefig(OUTPUT_DIR / "commit_weekday.png")
+plt.close()
+
+# -------------------------------
+# 7️⃣ Commit Distribution by Hour
+# -------------------------------
+plt.figure(figsize=(8,4))
+if hours:
+    hour_counts = [hours.count(i) for i in range(24)]
+    plt.bar(range(24), hour_counts, color="orange")
+    plt.xticks(range(24))
+else:
+    plt.text(0.5,0.5,"No commit data", ha="center", va="center", fontsize=14)
+plt.title("Commit Distribution by Hour")
+plt.xlabel("Hour of Day")
+plt.ylabel("Number of Commits")
+plt.tight_layout()
+plt.savefig(OUTPUT_DIR / "commit_hours.png")
 plt.close()
 
 print("✅ Commit-level metrics generated successfully!")
