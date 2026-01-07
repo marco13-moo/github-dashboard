@@ -136,3 +136,37 @@ plt.savefig(OUTPUT_DIR / "language_repo.png")
 plt.close()
 
 print("✅ Language metrics generated successfully!")
+
+# -------------------------------
+# 5️⃣ Language Popularity Trend (Cumulative Over Years)
+# -------------------------------
+# Build cumulative sum of language LOC per year
+lang_cumulative = {}
+years = sorted(lang_year_counter.keys())
+all_langs = set(lang for c in lang_year_counter.values() for lang in c)
+
+# Initialize cumulative dictionary
+for lang in all_langs:
+    lang_cumulative[lang] = []
+
+# Compute cumulative sums per language
+for lang in all_langs:
+    cumulative = 0
+    for year in years:
+        cumulative += lang_year_counter.get(year, {}).get(lang, 0)
+        lang_cumulative[lang].append(cumulative)
+
+# Plot cumulative trend
+plt.figure(figsize=(10,5))
+for lang, values in lang_cumulative.items():
+    plt.plot(years, values, marker='o', label=lang)
+
+if all_langs:
+    plt.legend(title="Languages")
+plt.xlabel("Year")
+plt.ylabel("Cumulative Contributions")
+plt.title("Language Popularity Trend Over Time")
+plt.xticks(years)
+plt.tight_layout()
+plt.savefig(OUTPUT_DIR / "language_trend.png")
+plt.close()
