@@ -18,7 +18,8 @@ Requirements:
 import os
 import requests
 from pathlib import Path
-from datetime import datetime
+from datetime import timezone
+from utils.time import utc_now, parse_github_timestamp
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
@@ -81,8 +82,9 @@ for repo in repos:
     total_prs = len(prs)
     merge_ratio = merged / total_prs if total_prs > 0 else 0
     # Last commit recency in days
-    last_commit_date = datetime.fromisoformat(repo["pushed_at"].replace("Z","+00:00"))
-    days_since_last_commit = (datetime.utcnow() - last_commit_date).days
+    last_commit_date = parse_github_timestamp(repo["pushed_at"])
+    days_since_last_commit = (utc_now() - last_commit_date).days
+
 
     repo_health[repo_name] = {
         "open_issues": open_issues,
@@ -107,7 +109,7 @@ for repo in repos:
     commits = requests.get(f"https://api.github.com/repos/{USERNAME}/{repo['name']}/commits", headers=HEADERS).json()
     if not commits:
         continue
-    first_commit_date = datetime.fromisoformat(commits[-1]["commit"]["author"]["date"].replace("Z","+00:00"))
+    first_commit_date = parse_github_timestamp(commits[-1]["commit"]["author"]["date"])
     year = first_commit_date.year
     langs = requests.get(repo["languages_url"], headers=HEADERS).json()
     for lang in langs.keys():
