@@ -27,7 +27,15 @@ from wordcloud import WordCloud
 # -------------------------------
 # 0️⃣ Configuration
 # -------------------------------
-USERNAME = "your-username"  # replace with your GitHub username
+#USERNAME = "your-username"  # replace with your GitHub username
+
+repo = os.environ.get("GITHUB_REPOSITORY")
+
+if not repo:
+    raise RuntimeError("GITHUB_REPOSITORY environment variable not set")
+
+USERNAME = repo.split("/")[0]
+
 TOKEN = os.environ.get("GH_TOKEN")  # GitHub token stored in Actions secrets
 HEADERS = {"Authorization": f"token {TOKEN}"}
 

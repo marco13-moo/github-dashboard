@@ -4,7 +4,15 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 from collections import Counter
 
-USERNAME = "your-username"
+#USERNAME = "your-username"
+
+repo = os.environ.get("GITHUB_REPOSITORY")
+
+if not repo:
+    raise RuntimeError("GITHUB_REPOSITORY environment variable not set")
+
+USERNAME = repo.split("/")[0]
+
 TOKEN = os.environ.get("GH_TOKEN")
 HEADERS = {"Authorization": f"token {TOKEN}"}
 
