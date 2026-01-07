@@ -46,8 +46,13 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add metrics/
-          git commit -m "Update GitHub metrics [skip ci]" || echo "No changes"
-          git push
+          git add metrics || true
+          if git diff --cached --quiet; then
+           echo "No changes to commit"
+          else
+           git commit -m "Update GitHub metrics [skip ci]"
+           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
+          fi
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
