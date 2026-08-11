@@ -9,6 +9,7 @@ from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import chart_style  # noqa: F401 - applies the shared dashboard theme
 from collections import Counter
 
 # -----------------------------

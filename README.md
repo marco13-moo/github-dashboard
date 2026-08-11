@@ -1,159 +1,143 @@
-# 📊 GitHub Metrics Dashboard
+<div align="center">
 
-Welcome to my **GitHub Metrics Dashboard**!  
-This repository automatically generates, visualizes, and updates detailed metrics about my GitHub activity, repositories, commits, pull requests, issues, contributions, and more — all fully self-hosted with GitHub Actions.  
+![GitHub Metrics Dashboard](assets/dashboard-header.svg)
 
-Metrics are organized into **8 categories**, each updated daily automatically.
+An automatically updated view of **coding activity**, **collaboration**, **repositories**, **languages**, and **delivery health**.
 
----
+[![Updated daily](https://img.shields.io/badge/updated-daily-2f81f7?style=flat-square)](.github/workflows)
+[![Self-hosted](https://img.shields.io/badge/metrics-self--hosted-3fb950?style=flat-square)](scripts)
+[![Charts](https://img.shields.io/badge/charts-55-a371f7?style=flat-square)](metrics)
 
-## ⚡ Commit-Level Metrics
+</div>
 
-Visualizing my coding activity, commit patterns, and productivity trends.
+## At a glance
 
-| Metric | Visualization |
-|--------|---------------|
-| **Commits per Repo** | ![Commits per Repo](metrics/commits/commits_per_repo.svg) |
-| **Average Commit Length** | ![Commit Length](metrics/commits/avg_commit_length.png) |
-| **Commit Message Sentiment** | ![Commit Sentiment](metrics/commits/commit_sentiment.png) |
-| **Commits per Repo Topic** | ![Commits by Topic](metrics/commits/commits_per_topic.png) |
-| **Commits by Branch** | ![Commits by Branch](metrics/commits/commits_by_branch.png) |
-| **Most Frequently Edited Files** | ![Top Files](metrics/commits/top_files.png) |
-| **Commit Distribution by Weekday** | ![Weekday Heatmap](metrics/commits/commit_weekday.png) |
-| **Commit Distribution by Hour** | ![Hour Heatmap](metrics/commits/commit_hours.png) |
+<p align="center">
+  <a href="metrics/commits/commits_per_repo.png"><img src="metrics/commits/commits_per_repo.png" width="49%" alt="Commits per repository"></a>
+  <a href="metrics/languages/languages_loc.png"><img src="metrics/languages/languages_loc.png" width="49%" alt="Languages by lines of code"></a>
+  <a href="metrics/analytics/commit_hot_times.png"><img src="metrics/analytics/commit_hot_times.png" width="49%" alt="Commit activity heatmap"></a>
+  <a href="metrics/repos/repo_growth.png"><img src="metrics/repos/repo_growth.png" width="49%" alt="Repository growth"></a>
+</p>
 
----
+> Select any chart to open it at full resolution. Expand a section below to explore the complete dashboard.
 
-## 🔀 Pull Request & Issue Metrics
+<details open>
+<summary><strong>Commit activity</strong> — patterns, timing, sentiment, and frequently edited files</summary>
+<br>
+<p align="center">
+  <a href="metrics/commits/avg_commit_length.png"><img src="metrics/commits/avg_commit_length.png" width="49%" alt="Average commit length"></a>
+  <a href="metrics/commits/commit_sentiment.png"><img src="metrics/commits/commit_sentiment.png" width="49%" alt="Commit message sentiment"></a>
+  <a href="metrics/commits/commits_per_topic.png"><img src="metrics/commits/commits_per_topic.png" width="49%" alt="Commits by topic"></a>
+  <a href="metrics/commits/commits_by_branch.png"><img src="metrics/commits/commits_by_branch.png" width="49%" alt="Commits by branch"></a>
+  <a href="metrics/commits/top_files.png"><img src="metrics/commits/top_files.png" width="49%" alt="Most frequently edited files"></a>
+  <a href="metrics/commits/commit_weekday.png"><img src="metrics/commits/commit_weekday.png" width="49%" alt="Commits by weekday"></a>
+  <a href="metrics/commits/commit_hours.png"><img src="metrics/commits/commit_hours.png" width="49%" alt="Commits by hour"></a>
+</p>
+</details>
 
-Track my PR and issue activity, engagement, and review efficiency.
+<details>
+<summary><strong>Pull requests & issues</strong> — throughput, review speed, size, and engagement</summary>
+<br>
+<p align="center">
+  <a href="metrics/prs_issues/pr_merge_time.png"><img src="metrics/prs_issues/pr_merge_time.png" width="49%" alt="Pull request merge time"></a>
+  <a href="metrics/prs_issues/pr_size.png"><img src="metrics/prs_issues/pr_size.png" width="49%" alt="Pull request size"></a>
+  <a href="metrics/prs_issues/pr_comments.png"><img src="metrics/prs_issues/pr_comments.png" width="49%" alt="Pull request comments"></a>
+  <a href="metrics/prs_issues/pr_approval_rate.png"><img src="metrics/prs_issues/pr_approval_rate.png" width="49%" alt="Pull request approval rate"></a>
+  <a href="metrics/prs_issues/issue_age.png"><img src="metrics/prs_issues/issue_age.png" width="49%" alt="Issue age"></a>
+  <a href="metrics/prs_issues/closed_vs_open.png"><img src="metrics/prs_issues/closed_vs_open.png" width="49%" alt="Closed and open issues"></a>
+  <a href="metrics/prs_issues/top_labels.png"><img src="metrics/prs_issues/top_labels.png" width="49%" alt="Top issue labels"></a>
+  <a href="metrics/prs_issues/pr_review_latency.png"><img src="metrics/prs_issues/pr_review_latency.png" width="49%" alt="Pull request review latency"></a>
+  <a href="metrics/prs_issues/pr_merge_method.png"><img src="metrics/prs_issues/pr_merge_method.png" width="49%" alt="Pull request merge methods"></a>
+</p>
+</details>
 
-| Metric | Visualization |
-|--------|---------------|
-| **PR Open → Merge Time** | ![PR Merge Time](metrics/prs_issues/pr_merge_time.png) |
-| **PR Size** | ![PR Size](metrics/prs_issues/pr_size.png) |
-| **PR Comments Received/Given** | ![PR Comments](metrics/prs_issues/pr_comments.png) |
-| **PR Approval Rate** | ![PR Approval Rate](metrics/prs_issues/pr_approval_rate.png) |
-| **Issue Age Distribution** | ![Issue Age](metrics/prs_issues/issue_age.png) |
-| **Closed vs Open Issues by Repo** | ![Closed vs Open](metrics/prs_issues/closed_vs_open.png) |
-| **Top Issue Labels Used** | ![Issue Labels](metrics/prs_issues/top_labels.png) |
-| **PR Review Latency** | ![PR Review Latency](metrics/prs_issues/pr_review_latency.png) |
-| **PR Merge Method Distribution** | ![PR Merge Method](metrics/prs_issues/pr_merge_method.png) |
+<details>
+<summary><strong>Repositories</strong> — activity, growth, size, reach, and complexity</summary>
+<br>
+<p align="center">
+  <a href="metrics/repos/repo_activity.png"><img src="metrics/repos/repo_activity.png" width="49%" alt="Repository activity"></a>
+  <a href="metrics/repos/repo_growth.png"><img src="metrics/repos/repo_growth.png" width="49%" alt="Repository growth"></a>
+  <a href="metrics/repos/repo_sizes.png"><img src="metrics/repos/repo_sizes.png" width="49%" alt="Repository sizes"></a>
+  <a href="metrics/repos/language_complexity.png"><img src="metrics/repos/language_complexity.png" width="49%" alt="Language complexity"></a>
+  <a href="metrics/repos/stars_forks.png"><img src="metrics/repos/stars_forks.png" width="49%" alt="Stars and forks"></a>
+  <a href="metrics/repos/contributed_to.png"><img src="metrics/repos/contributed_to.png" width="49%" alt="Repositories contributed to"></a>
+  <a href="metrics/repos/pinned_repos.png"><img src="metrics/repos/pinned_repos.png" width="49%" alt="Pinned repository statistics"></a>
+</p>
+</details>
 
----
+<details>
+<summary><strong>Languages & technology</strong> — contribution volume, codebase mix, and trends</summary>
+<br>
+<p align="center">
+  <a href="metrics/languages/languages_commits.png"><img src="metrics/languages/languages_commits.png" width="49%" alt="Languages by commits"></a>
+  <a href="metrics/languages/new_languages.png"><img src="metrics/languages/new_languages.png" width="49%" alt="New languages over time"></a>
+  <a href="metrics/languages/language_trend.png"><img src="metrics/languages/language_trend.png" width="49%" alt="Language popularity trend"></a>
+  <a href="metrics/languages/language_repo.png"><img src="metrics/languages/language_repo.png" width="49%" alt="Language by repository size"></a>
+</p>
+</details>
 
-## 🗂 Repository Metrics
+<details>
+<summary><strong>Social & collaboration</strong> — network growth, collaborators, mentions, and stars</summary>
+<br>
+<p align="center">
+  <a href="metrics/social/followers_growth.png"><img src="metrics/social/followers_growth.png" width="49%" alt="Follower growth"></a>
+  <a href="metrics/social/top_collaborators.png"><img src="metrics/social/top_collaborators.png" width="49%" alt="Top collaborators"></a>
+  <a href="metrics/social/mentions.png"><img src="metrics/social/mentions.png" width="49%" alt="Mentions in issues and pull requests"></a>
+  <a href="metrics/social/orgs.png"><img src="metrics/social/orgs.png" width="49%" alt="Organizations contributed to"></a>
+  <a href="metrics/social/stars_karma.png"><img src="metrics/social/stars_karma.png" width="49%" alt="Stars given and received"></a>
+  <a href="metrics/social/starred_repos.png"><img src="metrics/social/starred_repos.png" width="49%" alt="Most starred contributed repositories"></a>
+</p>
+</details>
 
-Get an overview of my repositories, growth, languages, and contribution trends.
+<details>
+<summary><strong>CI/CD & DevOps</strong> — workflow reliability, triggers, deployment speed, and failures</summary>
+<br>
+<p align="center">
+  <a href="metrics/ci_cd/workflow_runs.png"><img src="metrics/ci_cd/workflow_runs.png" width="49%" alt="Workflow runs"></a>
+  <a href="metrics/ci_cd/workflow_triggers.png"><img src="metrics/ci_cd/workflow_triggers.png" width="49%" alt="Workflow triggers"></a>
+  <a href="metrics/ci_cd/auto_merge.png"><img src="metrics/ci_cd/auto_merge.png" width="49%" alt="Automatic merge frequency"></a>
+  <a href="metrics/ci_cd/deployment_time.png"><img src="metrics/ci_cd/deployment_time.png" width="49%" alt="Average deployment time"></a>
+  <a href="metrics/ci_cd/failed_jobs.png"><img src="metrics/ci_cd/failed_jobs.png" width="49%" alt="Failed jobs by repository"></a>
+</p>
+</details>
 
-| Metric | Visualization |
-|--------|---------------|
-| **Repo Activity Score** | ![Repo Activity](metrics/repos/repo_activity.png) |
-| **Repo Growth Rate** | ![Repo Growth](metrics/repos/repo_growth.png) |
-| **Repo Size Distribution** | ![Repo Sizes](metrics/repos/repo_sizes.png) |
-| **Repo Language Complexity** | ![Language Complexity](metrics/repos/language_complexity.png) |
-| **Repo Star / Fork / Watch Trends** | ![Stars/Forks](metrics/repos/stars_forks.png) |
-| **Repos Contributed To** | ![Repos Contributed](metrics/repos/contributed_to.png) |
-| **Pinned Repos Stats** | ![Pinned Repos](metrics/repos/pinned_repos.png) |
+<details>
+<summary><strong>Fun & gamified</strong> — streaks, hot repositories, word clouds, and karma</summary>
+<br>
+<p align="center">
+  <a href="metrics/fun/contribution_streaks.png"><img src="metrics/fun/contribution_streaks.png" width="49%" alt="Contribution streaks"></a>
+  <a href="metrics/fun/hot_repos.png"><img src="metrics/fun/hot_repos.png" width="49%" alt="Hot repositories"></a>
+  <a href="metrics/fun/commit_wordcloud.png"><img src="metrics/fun/commit_wordcloud.png" width="49%" alt="Commit word cloud"></a>
+  <a href="metrics/fun/contributor_diversity.png"><img src="metrics/fun/contributor_diversity.png" width="49%" alt="Contributor diversity"></a>
+  <a href="metrics/fun/hackathon_contributions.png"><img src="metrics/fun/hackathon_contributions.png" width="49%" alt="Hackathon contributions"></a>
+  <a href="metrics/fun/code_review_karma.png"><img src="metrics/fun/code_review_karma.png" width="49%" alt="Code review karma"></a>
+  <a href="metrics/fun/activity_score_per_day.png"><img src="metrics/fun/activity_score_per_day.png" width="49%" alt="Daily activity score"></a>
+</p>
+</details>
 
----
+<details>
+<summary><strong>Deep analytics</strong> — churn, health, stack evolution, topics, and impact</summary>
+<br>
+<p align="center">
+  <a href="metrics/analytics/churn_rate.png"><img src="metrics/analytics/churn_rate.png" width="49%" alt="Code churn"></a>
+  <a href="metrics/analytics/repo_health_index.png"><img src="metrics/analytics/repo_health_index.png" width="49%" alt="Repository health index"></a>
+  <a href="metrics/analytics/tech_stack_evolution.png"><img src="metrics/analytics/tech_stack_evolution.png" width="49%" alt="Technology stack evolution"></a>
+  <a href="metrics/analytics/pr_issue_topics.png"><img src="metrics/analytics/pr_issue_topics.png" width="49%" alt="Pull request and issue topics"></a>
+  <a href="metrics/analytics/avg_contributors.png"><img src="metrics/analytics/avg_contributors.png" width="49%" alt="Average contributor count"></a>
+  <a href="metrics/analytics/open_source_impact.png"><img src="metrics/analytics/open_source_impact.png" width="49%" alt="Open source impact"></a>
+</p>
+</details>
 
-## 🖥 Language & Tech Metrics
+## How it works
 
-Analyze my coding languages, LOC, and trends over time.
+The dashboard refreshes daily with GitHub Actions:
 
-| Metric | Visualization |
-|--------|---------------|
-| **Languages by Contribution Volume** | ![Languages by Commits](metrics/languages/languages_commits.png) |
-| **Languages by LOC** | ![Languages LOC](metrics/languages/languages_loc.png) |
-| **New Languages Over Time** | ![New Languages](metrics/languages/new_languages.png) |
-| **Language Popularity Trend** | ![Language Trend](metrics/languages/language_trend.png) |
-| **Language vs Repo Size** | ![Language vs Repo](metrics/languages/language_repo.png) |
+1. Repository data is collected through the GitHub API.
+2. The Python generators in [`scripts/`](scripts) build every chart with a shared visual theme.
+3. Updated images are written to [`metrics/`](metrics) and committed automatically.
 
----
-
-## 🌐 Social Metrics
-
-Track my GitHub social activity and collaboration.
-
-| Metric | Visualization |
-|--------|---------------|
-| **Follower / Following Growth** | ![Network Growth](metrics/social/followers_growth.png) |
-| **Top Collaborators** | ![Top Collaborators](metrics/social/top_collaborators.png) |
-| **Mentions in Issues / PRs** | ![Mentions](metrics/social/mentions.png) |
-| **Organizations Contributed To** | ![Organizations](metrics/social/orgs.png) |
-| **Stars Given vs Stars Received** | ![Stars Karma](metrics/social/stars_karma.png) |
-| **Most Starred Repos You Contributed To** | ![Starred Repos](metrics/social/starred_repos.png) |
-
----
-
-## ⚙ CI/CD & DevOps Metrics
-
-Monitor my workflows, deployments, and automation efficiency.
-
-| Metric | Visualization |
-|--------|---------------|
-| **Workflow Runs Per Repo** | ![Workflow Runs](metrics/ci_cd/workflow_runs.png) |
-| **Workflow Success Rate** | ![Success Rate](metrics/ci_cd/workflow_success.png) |
-| **Workflow Trigger Distribution** | ![Trigger Distribution](metrics/ci_cd/workflow_triggers.png) |
-| **PR Auto-Merge Frequency** | ![Auto Merge](metrics/ci_cd/auto_merge.png) |
-| **Average Deployment Time** | ![Deployment Time](metrics/ci_cd/deployment_time.png) |
-| **Failed Jobs by Repo** | ![Failed Jobs](metrics/ci_cd/failed_jobs.png) |
-
----
-
-## 🎮 Advanced / Fun / Gamified Metrics
-
-Add gamified insights about my contributions.
-
-| Metric | Visualization |
-|--------|---------------|
-| **Contribution Streaks** | ![Contribution Streaks](metrics/fun/contribution_streaks.png) |
-| **Hot Repos** | ![Hot Repos](metrics/fun/hot_repos.png) |
-| **Commit Word Cloud** | ![Word Cloud](metrics/fun/commit_wordcloud.png) |
-| **Contributor Diversity** | ![Contributor Diversity](metrics/fun/contributor_diversity.png) |
-| **Hackathon / Event Contributions** | ![Hackathon Contributions](metrics/fun/hackathon_contributions.png) |
-| **Code Review Karma** | ![Code Review Karma](metrics/fun/code_review_karma.png) |
-| **Activity Score per Day** | ![Activity Score](metrics/fun/activity_score_per_day.png) |
-
----
-
-## 📊 Ultra-Niche / Analytical Metrics
-
-In-depth analysis of my GitHub activity.
-
-| Metric | Visualization |
-|--------|---------------|
-| **Churn Rate (Lines Added vs Deleted)** | ![Churn Rate](metrics/analytics/churn_rate.png) |
-| **Repo Health Index** | ![Repo Health](metrics/analytics/repo_health_index.png) |
-| **Tech Stack Evolution** | ![Tech Stack](metrics/analytics/tech_stack_evolution.png) |
-| **Commit Hot Times (Heatmap)** | ![Commit Hot Times](metrics/analytics/commit_hot_times.png) |
-| **PR & Issue Topic Analysis** | ![PR & Issue Topics](metrics/analytics/pr_issue_topics.png) |
-| **Average Contributor Count per Repo** | ![Avg Contributors](metrics/analytics/avg_contributors.png) |
-| **Open Source Impact Score** | ![Open Source Impact](metrics/analytics/open_source_impact.png) |
-
----
-
-## ⚙ Workflow
-
-All metrics are **automatically updated daily** via GitHub Actions.  
-The workflow:
-
-1. Pulls repo data via the **GitHub API** using a **personal access token** stored as `GH_TOKEN`.  
-2. Runs all Python scripts in `scripts/` to generate updated charts and SVGs.  
-3. Commits updated metrics to the `metrics/` folder.  
-4. Skips CI on the auto-commit to avoid infinite loops.  
-
-> You can trigger the workflow manually in the **Actions tab** if needed.
+The workflow can also be started manually from the repository's **Actions** tab.
 
 ---
 
-## 📌 Notes
-
-- All metrics are **self-hosted**; no third-party services.  
-- This dashboard is continuously updated to reflect real-time contributions.  
-- Images/SVGs are auto-generated and referenced in this README.
-
----
-
-**Enjoy exploring my GitHub stats! 🚀**
+<p align="center"><sub>Self-hosted metrics · No external chart service · Updated automatically</sub></p>

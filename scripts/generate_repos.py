@@ -2,10 +2,11 @@ import os
 import requests
 from pathlib import Path
 from collections import Counter
-from datetime import datetime
+from datetime import datetime, timezone
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import chart_style  # noqa: F401 - applies the shared dashboard theme
 
 # -----------------------------
 # Auth / Setup
@@ -33,15 +34,19 @@ repos = requests.get(
 # -----------------------------
 # 1️⃣ Repo Activity (last push)
 # -----------------------------
+recent_repos = sorted(repos, key=lambda r: r["pushed_at"], reverse=True)[:12]
 activity = {
-    r["name"]: datetime.fromisoformat(r["pushed_at"].replace("Z", ""))
-    for r in repos
+    r["name"]: max(
+        0,
+        (datetime.now(timezone.utc) - datetime.fromisoformat(r["pushed_at"].replace("Z", "+00:00"))).days,
+    )
+    for r in reversed(recent_repos)
 }
 
-plt.figure(figsize=(8,4))
-plt.bar(activity.keys(), range(len(activity)))
-plt.xticks(rotation=45)
-plt.title("Repo Activity")
+plt.figure(figsize=(9,5))
+plt.barh(activity.keys(), activity.values())
+plt.xlabel("Days since last push · lower is better")
+plt.title("Most Recently Active Repositories")
 plt.tight_layout()
 plt.savefig(OUTPUT_DIR / "repo_activity.png")
 plt.close()
@@ -63,12 +68,13 @@ plt.close()
 # -----------------------------
 # 3️⃣ Repo Sizes
 # -----------------------------
-sizes = {r["name"]: r["size"] for r in repos}
+largest = sorted(repos, key=lambda r: r["size"], reverse=True)[:12]
+sizes = {r["name"]: r["size"] for r in reversed(largest)}
 
-plt.figure(figsize=(8,4))
-plt.bar(sizes.keys(), sizes.values())
-plt.xticks(rotation=45)
-plt.title("Repo Sizes (KB)")
+plt.figure(figsize=(9,5))
+plt.barh(sizes.keys(), sizes.values())
+plt.xlabel("Repository size (KB)")
+plt.title("Largest Repositories")
 plt.tight_layout()
 plt.savefig(OUTPUT_DIR / "repo_sizes.png")
 plt.close()
@@ -82,10 +88,12 @@ for r in repos:
     langs = requests.get(r["languages_url"], headers=HEADERS).json()
     language_complexity[r["name"]] = len(langs)
 
-plt.figure(figsize=(8,4))
-plt.bar(language_complexity.keys(), language_complexity.values())
-plt.xticks(rotation=45)
-plt.title("Language Complexity per Repo")
+complex_repos = sorted(language_complexity.items(), key=lambda item: item[1], reverse=True)[:12]
+complex_repos = dict(reversed(complex_repos))
+plt.figure(figsize=(9,5))
+plt.barh(complex_repos.keys(), complex_repos.values())
+plt.xlabel("Languages detected")
+plt.title("Most Polyglot Repositories")
 plt.tight_layout()
 plt.savefig(OUTPUT_DIR / "language_complexity.png")
 plt.close()
@@ -121,9 +129,9 @@ plt.close()
 top = sorted(repos, key=lambda r: r["stargazers_count"], reverse=True)[:6]
 
 plt.figure(figsize=(8,4))
-plt.bar([r["name"] for r in top], [r["stargazers_count"] for r in top])
-plt.xticks(rotation=45)
-plt.title("Pinned Repos (Top Stars)")
+plt.barh([r["name"] for r in reversed(top)], [r["stargazers_count"] for r in reversed(top)])
+plt.xlabel("Stars")
+plt.title("Most Starred Repositories")
 plt.tight_layout()
 plt.savefig(OUTPUT_DIR / "pinned_repos.png")
 plt.close()

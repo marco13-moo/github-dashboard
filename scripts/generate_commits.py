@@ -10,6 +10,7 @@ from collections import Counter
 import matplotlib
 matplotlib.use("Agg")  # headless mode for GitHub Actions
 import matplotlib.pyplot as plt
+import chart_style  # noqa: F401 - applies the shared dashboard theme
 from textblob import TextBlob
 from datetime import datetime
 

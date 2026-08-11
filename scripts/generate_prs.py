@@ -10,6 +10,7 @@ from datetime import datetime
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import chart_style  # noqa: F401 - applies the shared dashboard theme
 import numpy as np
 from collections import Counter
 

@@ -20,6 +20,7 @@ import requests
 from pathlib import Path
 from datetime import datetime, timedelta, timezone
 import matplotlib.pyplot as plt
+import chart_style  # noqa: F401 - applies the shared dashboard theme
 import pandas as pd
 from collections import Counter
 from wordcloud import WordCloud

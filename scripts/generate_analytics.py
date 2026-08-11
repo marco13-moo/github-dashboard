@@ -22,6 +22,7 @@ from datetime import timezone
 from utils.time import utc_now, parse_github_timestamp
 import matplotlib.pyplot as plt
 import seaborn as sns
+import chart_style  # noqa: F401 - applies the shared dashboard theme
 import pandas as pd
 from collections import Counter
 
@@ -153,9 +154,14 @@ for repo in repos:
 # Create heatmap dataframe
 df_heat = pd.DataFrame({"Hour": hours, "Weekday": weekdays})
 heatmap_data = pd.crosstab(df_heat["Weekday"], df_heat["Hour"])
+heatmap_data = heatmap_data.reindex(index=range(7), columns=range(24), fill_value=0)
 plt.figure(figsize=(12,6))
-sns.heatmap(heatmap_data, cmap="YlGnBu")
-plt.title("Commit Hot Times (Hours vs Weekday)")
+sns.heatmap(heatmap_data, cmap="mako", linewidths=0.35, linecolor="white", cbar_kws={"label": "Commits"})
+plt.yticks([i + 0.5 for i in range(7)], ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], rotation=0)
+plt.xticks([i + 0.5 for i in range(0, 24, 2)], [f"{i:02d}:00" for i in range(0, 24, 2)], rotation=0)
+plt.xlabel("Hour of day (UTC)")
+plt.ylabel("")
+plt.title("When I Commit")
 plt.savefig(OUTPUT_DIR / "commit_hot_times.png")
 plt.close()
 
