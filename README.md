@@ -1,16 +1,6 @@
-<div align="center">
+# GitHub Metrics
 
-![GitHub Metrics Dashboard](assets/dashboard-header.svg)
-
-An automatically updated view of **coding activity**, **collaboration**, **repositories**, **languages**, and **delivery health**.
-
-[![Updated daily](https://img.shields.io/badge/updated-daily-2f81f7?style=flat-square)](.github/workflows)
-[![Self-hosted](https://img.shields.io/badge/metrics-self--hosted-3fb950?style=flat-square)](scripts)
-[![Charts](https://img.shields.io/badge/charts-55-a371f7?style=flat-square)](metrics)
-
-### [Open the interactive dashboard →](https://marco-github-metrics.lmfao69696.chatgpt.site)
-
-</div>
+Daily, self-hosted visual analytics for my code, repositories, collaboration, and delivery workflows.
 
 ## At a glance
 
@@ -21,7 +11,7 @@ An automatically updated view of **coding activity**, **collaboration**, **repos
   <a href="metrics/repos/repo_growth.png"><img src="metrics/repos/repo_growth.png" width="49%" alt="Repository growth"></a>
 </p>
 
-> Select any chart to open it at full resolution. Expand a section below to explore the complete dashboard.
+Select a chart to open it at full resolution. Every visualization is generated with Python and refreshed daily by GitHub Actions.
 
 <details open>
 <summary><strong>Commit activity</strong> — patterns, timing, sentiment, and frequently edited files</summary>

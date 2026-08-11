@@ -180,7 +180,10 @@ for repo in repos:
     prs = requests.get(f"https://api.github.com/repos/{USERNAME}/{repo['name']}/pulls?state=closed", headers=HEADERS).json()
     for pr in prs:
         reviews_url = pr.get("url") + "/reviews"
-        reviews = requests.get(reviews_url, headers=HEADERS).json()
+        try:
+            reviews = requests.get(reviews_url, headers=HEADERS, timeout=20).json()
+        except requests.RequestException:
+            reviews = []
         for r in reviews:
             if r["user"]["login"].lower() == USERNAME.lower():
                 if r["state"].lower() == "approved":
