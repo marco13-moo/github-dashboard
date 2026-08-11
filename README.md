@@ -8,6 +8,8 @@ An automatically updated view of **coding activity**, **collaboration**, **repos
 [![Self-hosted](https://img.shields.io/badge/metrics-self--hosted-3fb950?style=flat-square)](scripts)
 [![Charts](https://img.shields.io/badge/charts-55-a371f7?style=flat-square)](metrics)
 
+### [Open the interactive dashboard →](https://marco-github-metrics.lmfao69696.chatgpt.site)
+
 </div>
 
 ## At a glance
